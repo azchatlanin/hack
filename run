@@ -1,0 +1,12 @@
+#!/bin/sh
+
+TEST="meson test -C build"
+RUN="./build/bin/hack"
+
+command meson compile -C build
+
+if [[ $1 == "test" ]]; then
+  command $TEST 
+else
+  command $RUN
+fi
