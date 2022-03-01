@@ -1,1 +1,1 @@
-![This is an image](./hack.png)
+![hack++'s logo](./hack.png)
