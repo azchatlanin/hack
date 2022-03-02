@@ -1,5 +1,5 @@
 #include "range.hpp"
 
-namespace hack
+namespace hack::renge
 {
 }

@@ -7,7 +7,6 @@
 
 TEST(split_str, check)
 {
-  hack::v_str v { "asdf", "qwer", "zxcv" };
-
-  ASSERT_EQ(hack::split_str("asdf,qwer,zxcv", ','), v);
+  std::vector<std::string> v { "asdf", "qwer", "zxcv" };
+  ASSERT_EQ(hack::string::split_str("asdf,qwer,zxcv", ','), v);
 }

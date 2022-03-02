@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 
-namespace hack
+namespace hack::string
 {
   using v_str = std::vector<std::string>;
 

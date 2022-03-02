@@ -1,9 +1,9 @@
 #pragma once
 
-namespace hack
+namespace hack::range
 {
   template<typename T, typename... Args>
-  bool within(T min, T max, Args... args)
+  bool within(const T min, const T max, Args... args)
   {
     return ((min <= args && max >= args) && ...);
     // 1, 5, 2, 3, 4

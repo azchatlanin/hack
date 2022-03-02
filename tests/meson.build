@@ -18,3 +18,12 @@ test(
     dependencies: [ range_dep, gtest_dep ]
   )
 )
+
+test(
+  'container',
+  executable(
+    'container',
+    'container.cpp',
+    dependencies: [ range_dep, gtest_dep ]
+  )
+)
