@@ -1,4 +1,5 @@
 deps += string_dep
+deps += range_dep
 
 executable(
   'hack', 'main.cpp', 

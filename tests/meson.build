@@ -5,7 +5,16 @@ test(
   'split_str',
   executable(
     'split_str',
-    'split_str.cpp',
+    'string.cpp',
     dependencies: [ string_dep, gtest_dep ]
+  )
+)
+
+test(
+  'within',
+  executable(
+    'within',
+    'range.cpp',
+    dependencies: [ range_dep, gtest_dep ]
   )
 )
