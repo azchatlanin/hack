@@ -21,4 +21,10 @@ int main(int argc, char *argv[])
     hack::container::v_multiset(v, "asdf", "qwer", "zcv");
     for(const auto& c : v) std::cout << c << std::endl;
   }
+
+  {// ex: s_multiset
+    std::set<int> s;
+    hack::container::s_multiset(s, 1, 2, 3, 3, 2, 1);
+    for(const auto& c : s) std::cout << c << std::endl;
+  }
 }

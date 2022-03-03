@@ -1,5 +1,7 @@
 #include "string.hpp"
 
+#include <iostream>
+
 namespace hack::string
 {
   v_str split_str(const std::string& str, char t)
@@ -15,9 +17,7 @@ namespace hack::string
       begin = ++end;
       end = str.find_first_of(t, begin);
     }
-
     v.emplace_back(str.substr(begin));
-
     return v;
   }
 }
