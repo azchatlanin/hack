@@ -1,6 +1,7 @@
 inc += include_directories('.')
 
 subdir('view')
+subdir('concepts')
 subdir('iterators')
 subdir('string')
 subdir('range')

@@ -1,7 +1,5 @@
 #include "string.hpp"
 
-#include <iostream>
-
 namespace hack::string
 {
   v_str split_str(const std::string& str, char t)

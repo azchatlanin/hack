@@ -1,13 +1,9 @@
 #pragma once
 
-#include <iostream>
 #include <experimental/source_location>
-#include <vector>
-#include <list>
-#include <map>
-#include <unordered_map>
 
 #include "view/color.hpp"
+#include "concepts/concepts.hpp"
 #include "iterators/sequence_ostream_iterator.hpp"
 #include "iterators/associative_ostream_iterator.hpp"
 
@@ -111,6 +107,14 @@ namespace hack
         std::cout << "{ ";
         ((std::cout << std::get<idx>(data) << (idx != std::tuple_size<T>::value - 1 ? devider : "")), ...);
         std::cout << " }" << (count != 0 ? devider : "");
+      }
+
+      template <template <class, class> typename Function, class ...Args>
+      auto LogCall(std::string fun_name, Function<Args...> fun, std::string fun_param = "", Args... args) 
+      {
+        auto temp{ fun(args...) };
+        std::cout << fun_name << "of" << fun_param << "/t -> /t" << temp << '\n';
+        return temp;
       }
 
       friend class warn;
