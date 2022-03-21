@@ -14,11 +14,11 @@ int main(int argc, char *argv[])
   {// ex: split_str
     std::string str { "asdf,qwer,zxcv" };
     hack::string::v_str v = hack::string::split_str(str, ',');
-    for (const auto& c : v) std::cout << c << std::endl;
+    for (const auto& c : v) hack::log()(c);
   }
 
   {// ex: within
-    std::cout << std::boolalpha << hack::range::within(12, 34, 12, 23, 31, 17, 22, 33) << std::endl;
+    hack::log()(hack::range::within(12, 34, 12, 23, 31, 17, 22, 33));
   }
 
   {// ex: vector_multiset
@@ -43,7 +43,7 @@ int main(int argc, char *argv[])
 
     std::vector<std::string> vs { "asdf", "qwer", "zxcv" };
     hack::log()("vector", vs, 1, 2, 'a');
-    
+  
     std::list<std::string> ls {  "asdf", "qwer", "zxcv" };
     hack::log()(vs, ls);
 
@@ -58,7 +58,7 @@ int main(int argc, char *argv[])
     std::vector<int> v { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     hack::log()(hack::container::matches(v, 2, 5, 4, 12));
   }
-  
+
   {// ex: vector_remove_at
     std::vector<int> v { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     hack::container::vector_remove_at(v, 3);

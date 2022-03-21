@@ -9,23 +9,6 @@
 
 namespace hack
 {
-  template<typename T>
-  concept is_sequence_container = std::same_as<T, std::vector<typename T::value_type>> || 
-    std::same_as<T, std::list<typename T::value_type>>;
-
-  template<typename T>
-  concept is_tuple = requires (T t)
-  { 
-    std::tuple_cat(t, std::make_tuple(1, "tuple"));
-  };
-
-  template<class T>
-  concept is_string = std::is_convertible_v<T, std::string_view>;
-
-  template<class T>
-  concept is_map = std::same_as<T, std::map<typename T::key_type, typename T::mapped_type, typename T::key_compare, typename T::allocator_type>> ||
-    std::same_as<T, std::unordered_map<typename T::key_type, typename T::mapped_type, typename T::hasher, typename T::key_equal, typename T::allocator_type>>;
-
   class log
   {
     public:
@@ -67,7 +50,7 @@ namespace hack
         print(args...);
       }
 
-      template<is_string T>
+      template<concepts::is_string T>
       static void print_t(const T& data)
       {
         std::cout << data << (count != 0 ? devider : "");
@@ -79,7 +62,7 @@ namespace hack
         std::cout << data << (count != 0 ? devider : "");
       }
 
-      template<is_sequence_container T>
+      template<concepts::is_sequence_container T>
       static void print_t(const T& data)
       {
         std::cout << "{ ";
@@ -87,7 +70,7 @@ namespace hack
         std::cout << " }" << (count != 0 ? devider : "");
       }
 
-      template<is_map T>
+      template<concepts::is_map T>
       static void print_t(const T& data)
       {
         std::cout << "{";
@@ -95,7 +78,7 @@ namespace hack
         std::cout << "}" << (count != 0 ? devider : "");
       }
 
-      template<is_tuple T, typename std::size_t... idx>
+      template<concepts::is_tuple T, typename std::size_t... idx>
       static void print_t(const T& data)
       {
         print_t(data, std::make_index_sequence<std::tuple_size<T>::value>{});
