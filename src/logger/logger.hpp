@@ -6,6 +6,7 @@
 #include "concepts/concepts.hpp"
 #include "iterators/sequence_ostream_iterator.hpp"
 #include "iterators/associative_ostream_iterator.hpp"
+#include "matrix/matrix.hpp"
 
 namespace hack
 {
@@ -21,17 +22,17 @@ namespace hack
       void operator() (const Args&... args)
       {
         std::cout << make_type_view
-                  << location.file_name() << ":" << view::color::reset 
-                  << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
-                  << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
-        count = sizeof...(Args);
+                  << location_.file_name() << ":" << view::color::reset 
+                  << view::color::italic << view::color::yellow << location_.function_name() << "()" << view::color::reset
+                  << view::color::bold << view::color::blue << "[" << location_.line() << "]" << view::color::reset << ": ";
+        count_ = sizeof...(Args);
         print(args...);
       }
 
     private:
-      std::experimental::source_location location;
-      static int count;
-      static std::string devider;
+      std::experimental::source_location location_;
+      static int count_;
+      static std::string devider_;
 
     private:
       static void print();
@@ -45,7 +46,7 @@ namespace hack
       template<typename T, typename... Args>
       static void print(const T& data, const Args&... args)
       {
-        count--;
+        count_--;
         print_t(data);
         print(args...);
       }
@@ -53,13 +54,13 @@ namespace hack
       template<concepts::is_string T>
       static void print_t(const T& data)
       {
-        std::cout << data << (count != 0 ? devider : "");
+        std::cout << data << (count_ != 0 ? devider_ : "");
       }
 
       template<std::integral T>
       static void print_t(const T& data)
       {
-        std::cout << data << (count != 0 ? devider : "");
+        std::cout << data << (count_ != 0 ? devider_ : "");
       }
 
       template<concepts::is_sequence_container T>
@@ -67,7 +68,7 @@ namespace hack
       {
         std::cout << "{ ";
         std::copy(data.cbegin(), data.cend(), iterators::sequence_ostream_iterator<typename T::value_type>(data.size(), std::cout));
-        std::cout << " }" << (count != 0 ? devider : "");
+        std::cout << " }" << (count_ != 0 ? devider_ : "");
       }
 
       template<concepts::is_map T>
@@ -75,7 +76,7 @@ namespace hack
       {
         std::cout << "{";
         std::copy(data.cbegin(), data.cend(), iterators::associative_ostream_iterator<typename T::value_type>(data.size(), std::cout));
-        std::cout << "}" << (count != 0 ? devider : "");
+        std::cout << "}" << (count_ != 0 ? devider_ : "");
       }
 
       template<concepts::is_tuple T, typename std::size_t... idx>
@@ -88,16 +89,27 @@ namespace hack
       static void print_t(const T& data, std::index_sequence<idx...>)
       {
         std::cout << "{ ";
-        ((std::cout << std::get<idx>(data) << (idx != std::tuple_size<T>::value - 1 ? devider : "")), ...);
-        std::cout << " }" << (count != 0 ? devider : "");
+        ((std::cout << std::get<idx>(data) << (idx != std::tuple_size<T>::value - 1 ? devider_ : "")), ...);
+        std::cout << " }" << (count_ != 0 ? devider_ : "");
       }
 
-      template <template <class, class> typename Function, class ...Args>
-      auto LogCall(std::string fun_name, Function<Args...> fun, std::string fun_param = "", Args... args) 
+      template<typename T, std::size_t demention>
+      static void print_t(const matrix<T, demention>& data)
       {
-        auto temp{ fun(args...) };
-        std::cout << fun_name << "of" << fun_param << "/t -> /t" << temp << '\n';
-        return temp;
+        std::size_t index = data.size();
+        for (auto& r : data)
+        {
+          index--;
+          std::cout << "{ ";
+          print_t(std::get<demention>(r));
+          std::cout << " }" << (index != 0 ? ", " : "");
+        }
+      }
+
+      template<concepts::not_defined T>
+      static void print_t(const T& data)
+      {
+        std::cout << data << (count_ != 0 ? devider_ : "");
       }
 
       friend class warn;
@@ -116,15 +128,15 @@ namespace hack
       void operator() (const Args&... args)
       {
         std::cout << make_type_view
-                  << location.file_name() << ":" << view::color::reset 
-                  << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
-                  << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
-        count = sizeof...(Args);
+                  << location_.file_name() << ":" << view::color::reset 
+                  << view::color::italic << view::color::yellow << location_.function_name() << "()" << view::color::reset
+                  << view::color::bold << view::color::blue << "[" << location_.line() << "]" << view::color::reset << ": ";
+        count_ = sizeof...(Args);
         print(args...);
       }
 
     private:
-      std::experimental::source_location location;
+      std::experimental::source_location location_;
 
     private:
       static std::ostream& make_type_view(std::ostream &os)
@@ -146,15 +158,15 @@ namespace hack
       void operator() (const Args&... args)
       {
         std::cout << make_type_view
-                  << location.file_name() << ":" << view::color::reset 
-                  << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
-                  << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
-        count = sizeof...(Args);
+                  << location_.file_name() << ":" << view::color::reset 
+                  << view::color::italic << view::color::yellow << location_.function_name() << "()" << view::color::reset
+                  << view::color::bold << view::color::blue << "[" << location_.line() << "]" << view::color::reset << ": ";
+        count_ = sizeof...(Args);
         print(args...);
       }
 
     private:
-      std::experimental::source_location location;
+      std::experimental::source_location location_;
 
     private:
       static std::ostream& make_type_view(std::ostream &os)
