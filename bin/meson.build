@@ -1,5 +1,6 @@
 deps += view_dep
 deps += concepts_dep
+deps += utils_dep
 deps += iterators_dep
 deps += string_dep
 deps += range_dep

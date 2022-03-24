@@ -11,6 +11,7 @@
 #include "container/container.hpp"
 #include "logger/logger.hpp"
 #include "matrix/matrix.hpp"
+#include "vector/vector.hpp"
 
 #include <string_view>
 
@@ -70,41 +71,46 @@ int main(int argc, char *argv[])
   //   hack::log()(v);
   // }
 
-  {// ex: matrix
-    hack::matrix<int, 3> m_int;
-    hack::matrix<int, 3> m_int_c { { 2, 3, 4, 123 }, { 0, 2, 4, 555 } };
-    hack::matrix<float, 3> m_float;
+  // {// ex: matrix
+  //   hack::matrix<int, 3> m_int;
+  //   hack::matrix<int, 3> m_int_c { { 2, 3, 4, 123 }, { 0, 2, 4, 555 } };
+  //   hack::matrix<float, 3> m_float;
+  //
+  //   m_int[0][0][0] = 123;
+  //   m_int[0][0][1] = 23;
+  //   m_int[0][0][2] = 43;
+  //   m_int_c[0][0][0] = 123;
+  //   m_float[0][0][0] = 123.123;
+  //
+  //   auto i = m_int[0][0][0];
+  //   auto f = m_float[0][0][0];
+  //
+  //   hack::log()("m_int", i); 
+  //   hack::log()("m_float", f);
+  //   hack::log()("empty", m_float[123][22][33]);
+  //
+  //   hack::log("")("compare (true): ", m_int == m_int_c);
+  //   hack::log("")("compare (false): ", m_int == m_float);
+  //   hack::log("")(m_int);
+  //   hack::log("")(m_int_c);
+  //
+  //   auto m_moved {std::forward<hack::matrix<int, 3>>(m_int_c)};
+  //   hack::log("")("moved data: ", m_moved);
+  //
+  //   m_int = std::forward<hack::matrix<int, 3>>(m_int_c);
+  //   hack::log("")("moved data: ", m_int);
+  //
+  //   hack::matrix<int, 3> m_int_d = m_int; 
+  //   hack::log("")("copy data: ", m_int_d);
+  //
+  //   hack::matrix<int, 3> m_int_cd { { 2, 3, 4, 3 }, { 0, 2, 4, 5 } };
+  //   hack::log("")("copy data: ", m_int_cd);
+  //   m_int_cd = m_int;
+  //   hack::log("")("copy data: ", m_int_cd);
+  // }
 
-    m_int[0][0][0] = 123;
-    m_int[0][0][1] = 23;
-    m_int[0][0][2] = 43;
-    m_int_c[0][0][0] = 123;
-    m_float[0][0][0] = 123.123;
-
-    auto i = m_int[0][0][0];
-    auto f = m_float[0][0][0];
-
-    hack::log()("m_int", i); 
-    hack::log()("m_float", f);
-    hack::log()("empty", m_float[123][22][33]);
-
-    hack::log("")("compare (true): ", m_int == m_int_c);
-    hack::log("")("compare (false): ", m_int == m_float);
-    hack::log("")(m_int);
-    hack::log("")(m_int_c);
-
-    auto m_moved {std::forward<hack::matrix<int, 3>>(m_int_c)};
-    hack::log("")("moved data: ", m_moved);
-
-    m_int = std::forward<hack::matrix<int, 3>>(m_int_c);
-    hack::log("")("moved data: ", m_int);
-
-    hack::matrix<int, 3> m_int_d = m_int; 
-    hack::log("")("copy data: ", m_int_d);
-
-    hack::matrix<int, 3> m_int_cd { { 2, 3, 4, 3 }, { 0, 2, 4, 5 } };
-    hack::log("")("copy data: ", m_int_cd);
-    m_int_cd = m_int;
-    hack::log("")("copy data: ", m_int_cd);
+  {// ex: vector
+    hack::vector<int, int, int> v3 { 1, 2, 3, };
+    hack::log()(v3.get_value());
   }
 }
