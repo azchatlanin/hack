@@ -41,23 +41,23 @@ namespace hack
     public:
       value_t get_value() { return value_; };
 
-      auto x()
+      auto x() const
       {
         return std::get<0>(value_);
       }
 
-      auto y()
+      auto y() const
       {
         return std::get<1>(value_);
       }
 
-      auto z()
+      auto z() const
       {
         if (std::tuple_size<value_t>{} < 3) throw std::out_of_range("You try get no valid vector date!");
         return std::get<2>(value_);
       }
 
-      auto w()
+      auto w() const
       {
         if (std::tuple_size<value_t>{} < 4) throw std::out_of_range("You try get no valid vector date!");
         return std::get<3>(value_);
