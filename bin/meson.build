@@ -5,6 +5,7 @@ deps += string_dep
 deps += range_dep
 deps += container_dep
 deps += logger_dep
+deps += vector_dep
 deps += matrix_dep
 
 executable(

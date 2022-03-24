@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
 
   {// ex: matrix
     hack::matrix<int, 3> m_int;
-    hack::matrix<int, 3> m_int_c;
+    hack::matrix<int, 3> m_int_c { { 2, 3, 4, 123 }, { 0, 2, 4, 555 } };
     hack::matrix<float, 3> m_float;
 
     m_int[0][0][0] = 123;
@@ -86,9 +86,25 @@ int main(int argc, char *argv[])
 
     hack::log()("m_int", i); 
     hack::log()("m_float", f);
+    hack::log()("empty", m_float[123][22][33]);
 
     hack::log("")("compare (true): ", m_int == m_int_c);
     hack::log("")("compare (false): ", m_int == m_float);
     hack::log("")(m_int);
+    hack::log("")(m_int_c);
+
+    auto m_moved {std::forward<hack::matrix<int, 3>>(m_int_c)};
+    hack::log("")("moved data: ", m_moved);
+
+    m_int = std::forward<hack::matrix<int, 3>>(m_int_c);
+    hack::log("")("moved data: ", m_int);
+
+    hack::matrix<int, 3> m_int_d = m_int; 
+    hack::log("")("copy data: ", m_int_d);
+
+    hack::matrix<int, 3> m_int_cd { { 2, 3, 4, 3 }, { 0, 2, 4, 5 } };
+    hack::log("")("copy data: ", m_int_cd);
+    m_int_cd = m_int;
+    hack::log("")("copy data: ", m_int_cd);
   }
 }

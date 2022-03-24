@@ -67,9 +67,34 @@ namespace hack
   template<typename T, std::size_t dimensions>
   class matrix
   {
+    using index_t = typename matrix_utils::generate_tuple<std::size_t, dimensions>::type;    
+    using vector_t = decltype(std::tuple_cat(index_t{}, std::make_tuple(T{})));
+    using index_data_t = std::vector<vector_t>;
+
     public:
-      matrix() : local_storage_ { new index_data{} } { }
+      matrix() noexcept : local_storage_ { new index_data{} } { }
+      matrix(std::initializer_list<vector_t> l) noexcept : local_storage_ { new index_data{} } 
+      { 
+        local_storage_->values.insert(local_storage_->values.end(), l.begin(), l.end());
+      }
+      matrix(matrix& mt) noexcept : local_storage_ { mt.local_storage_ } { }
+      matrix(matrix&& mt) noexcept : local_storage_ { mt.local_storage_ } { }
       
+      matrix& operator=(matrix&& mt)
+      {
+        if (this == &mt) return *this;
+        local_storage_.reset();
+        local_storage_ = mt.local_storage_;
+        return *this;
+      }
+
+      matrix& operator=(const matrix& mt)
+      {
+        if (this == &mt) return *this;
+        local_storage_ = mt.local_storage_;
+        return *this;
+      }
+
       auto operator[](std::size_t index)
       {
         return matrix_utils::proxy<T, index_data, std::tuple<std::size_t>>{ local_storage_, std::make_tuple(index) };
@@ -113,9 +138,6 @@ namespace hack
     private:
       struct index_data
       {
-        using index_t = typename matrix_utils::generate_tuple<std::size_t, dimensions>::type;    
-        using index_data_t = std::vector<decltype(std::tuple_cat(index_t{}, std::make_tuple(T{})))>;
-
         void set_value(const index_t& index, const T& v)
         {
           auto value = std::tuple_cat(index, std::make_tuple(v));
