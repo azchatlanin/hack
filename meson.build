@@ -29,5 +29,6 @@ inc = []
 inc += include_directories('.')
 
 subdir('src')
+subdir('index')
 subdir('bin')
 subdir('tests')
