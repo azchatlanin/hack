@@ -131,5 +131,6 @@ int main(int argc, char *argv[])
 
     auto [x, y, z] = lerp_1.get_value();
     hack::log()("get", x, y, z);
+    hack::log()("get", lerp_1.x());
   }
 }

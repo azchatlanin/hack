@@ -2,6 +2,7 @@
 
 #include <tuple>
 #include <math.h>
+#include <stdexcept>
 
 namespace hack 
 {
@@ -26,7 +27,10 @@ namespace hack
     using value_t = decltype(typename generate_tuple<Args...>::type{});
 
     public:
-      vector(Args... args) : value_ { args... } {}
+      vector(Args... args) : value_ { args... } 
+      {
+        if (std::tuple_size<value_t>{} < 2) throw std::out_of_range("You try make no valid vector!");
+      }
       vector& operator=(const vector& v)
       {
         if (this == &v) return *this;
@@ -36,6 +40,28 @@ namespace hack
 
     public:
       value_t get_value() { return value_; };
+
+      auto x()
+      {
+        return std::get<0>(value_);
+      }
+
+      auto y()
+      {
+        return std::get<1>(value_);
+      }
+
+      auto z()
+      {
+        if (std::tuple_size<value_t>{} < 3) throw std::out_of_range("You try get no valid vector date!");
+        return std::get<2>(value_);
+      }
+
+      auto w()
+      {
+        if (std::tuple_size<value_t>{} < 4) throw std::out_of_range("You try get no valid vector date!");
+        return std::get<3>(value_);
+      }
 
       auto length()
       {
