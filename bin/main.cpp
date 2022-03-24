@@ -128,5 +128,8 @@ int main(int argc, char *argv[])
     hack::vector<int, int, int> lerp_1 { 1, 2, 3 };
     hack::vector<int, int, int> lerp_2 { 5, 6, 7 };
     hack::log()("lerp", lerp_1.lerp(lerp_2, 0.75f));
+
+    auto [x, y, z] = lerp_1.get_value();
+    hack::log()("get", x, y, z);
   }
 }

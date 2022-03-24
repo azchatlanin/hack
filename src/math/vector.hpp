@@ -37,11 +37,6 @@ namespace hack
     public:
       value_t get_value() { return value_; };
 
-      auto get(std::size_t index)
-      {
-        return std::get<index>(value_);
-      }
-
       auto length()
       {
         return std::sqrt(length_idx(std::make_index_sequence<std::tuple_size<value_t>::value>{}));
