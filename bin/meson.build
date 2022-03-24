@@ -6,7 +6,6 @@ deps += string_dep
 deps += range_dep
 deps += container_dep
 deps += logger_dep
-deps += hack_dep
 
 executable(
   'hack', 'main.cpp', 
