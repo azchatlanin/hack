@@ -1,14 +1,14 @@
-headers = ['matrix.hpp']
+headers = ['vector.hpp', 'matrix.hpp']
 sources = []
 
 lib = library(
-  'matrix',
+  'math',
   include_directories : inc,
   install : true,
   sources: [headers, sources]
 )
 
-matrix_dep = declare_dependency(
+math_dep = declare_dependency(
   include_directories: inc,
   link_with: lib
 )

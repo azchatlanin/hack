@@ -10,8 +10,8 @@
 #include "range/range.hpp"
 #include "container/container.hpp"
 #include "logger/logger.hpp"
-#include "matrix/matrix.hpp"
-#include "vector/vector.hpp"
+#include "math/matrix.hpp"
+#include "math/vector.hpp"
 
 #include <string_view>
 
@@ -110,7 +110,23 @@ int main(int argc, char *argv[])
   // }
 
   {// ex: vector
-    hack::vector<int, int, int> v3 { 1, 2, 3, };
-    hack::log()(v3.get_value());
+    hack::vector<int, int, int> v3_1 { 8, 4, 9, };
+    hack::vector<int, int, int> v3_2 { 1, 2, 3, };
+    hack::log()(v3_1.get_value());
+    hack::log()(v3_2.get_value());
+
+    v3_1 = v3_2;
+
+    hack::log()(v3_1.get_value());
+    hack::log()(v3_2.get_value());
+
+    hack::log()("length 3", v3_2.length());
+    
+    hack::vector<int, int> v2_1 { 11, 22 };
+    hack::log()("length 2", v2_1.length());
+
+    hack::vector<int, int, int> lerp_1 { 1, 2, 3 };
+    hack::vector<int, int, int> lerp_2 { 5, 6, 7 };
+    hack::log()("lerp", lerp_1.lerp(lerp_2, 0.75f));
   }
 }

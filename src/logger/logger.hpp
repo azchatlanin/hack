@@ -6,7 +6,7 @@
 #include "concepts/concepts.hpp"
 #include "iterators/sequence_ostream_iterator.hpp"
 #include "iterators/associative_ostream_iterator.hpp"
-#include "matrix/matrix.hpp"
+#include "math/matrix.hpp"
 
 namespace hack
 {

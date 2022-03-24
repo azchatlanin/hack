@@ -5,7 +5,7 @@
 
 namespace hack::utils
 {
-  template<typename T, size_t N>
+  template<typename T, std::size_t N>
   struct generate_tuple 
   {
     using type = decltype(std::tuple_cat(typename generate_tuple<T, N - 1>::type{}, std::make_tuple(T{})));
