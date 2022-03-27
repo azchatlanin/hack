@@ -2,22 +2,22 @@
 
 namespace hack
 {
-  std::string log::devider_ = " ";
-  int log::count_ = 0;
+  // std::string log::devider = " ";
+  // int log::count = 0;
 
-  log::log(const std::string devider, std::experimental::source_location location) : location_ { location }
+  log::log(const std::string devider_, std::experimental::source_location location_) : location { location_ }
   {
-    this->devider_ = devider;
+    //this->devider = devider_;
   }
 
-  warn::warn(const std::string devider, std::experimental::source_location location) : location_ { location }
+  warn::warn(const std::string devider_, std::experimental::source_location location_) : location { location_ }
   {
-   this->devider_ = devider;
+   //this->devider = devider_;
   }
 
-  error::error(const std::string devider, std::experimental::source_location location) : location_ { location }
+  error::error(const std::string devider_, std::experimental::source_location location_) : location { location_ }
   {
-   this->devider_ = devider;
+   //this->devider = devider_;
   }
 
   void log::print() { std::cout << std::endl; }
