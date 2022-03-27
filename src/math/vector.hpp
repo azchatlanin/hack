@@ -53,13 +53,13 @@ namespace hack
 
       auto z() const
       {
-        if (std::tuple_size<value_t>{} < 3) throw std::out_of_range("You try get no valid vector date!");
+        if (std::tuple_size<value_t>{} < 3) throw std::out_of_range("You try get no valid vector data!");
         return std::get<2>(value_);
       }
 
       auto w() const
       {
-        if (std::tuple_size<value_t>{} < 4) throw std::out_of_range("You try get no valid vector date!");
+        if (std::tuple_size<value_t>{} < 4) throw std::out_of_range("You try get no valid vector data!");
         return std::get<3>(value_);
       }
 

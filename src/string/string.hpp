@@ -2,6 +2,9 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <tuple>
+
 
 namespace hack::string
 {

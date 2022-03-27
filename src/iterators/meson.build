@@ -4,7 +4,6 @@ sources = []
 lib = library(
   'iterators',
   include_directories : inc,
-  install : true,
   sources: [headers, sources]
 )
 

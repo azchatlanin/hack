@@ -1,10 +1,9 @@
-headers = ['string.hpp']
+headers = ['string.hpp', 'string_concat_helper.hpp']
 sources = ['string.cpp']
 
 lib = library(
   'string',
   include_directories : inc,
-  install : true,
   sources: [headers, sources]
 )
 

@@ -4,7 +4,6 @@ sources = ['container.cpp']
 lib = library(
   'container',
   include_directories : inc,
-  install : true,
   sources: [headers, sources]
 )
 

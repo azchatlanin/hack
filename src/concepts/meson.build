@@ -4,7 +4,6 @@ sources = []
 lib = library(
   'concepts',
   include_directories : inc,
-  install : true,
   sources: [headers, sources]
 )
 

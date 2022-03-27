@@ -4,7 +4,6 @@ sources = ['range.cpp']
 lib = library(
   'range',
   include_directories : inc,
-  install : true,
   sources: [headers, sources]
 )
 

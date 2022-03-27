@@ -3,13 +3,22 @@
 #include <memory>
 #include <vector>
 #include <tuple>
-#include <algorithm>
 #include <iostream>
-
-#include "utils/utils.hpp"
 
 namespace hack::matrix_utils
 {
+  template<typename T, std::size_t N>
+  struct generate_tuple 
+  {
+    using type = decltype(std::tuple_cat(typename generate_tuple<T, N - 1>::type{}, std::make_tuple(T{})));
+  };
+
+  template<typename T>
+  struct generate_tuple<T, 1> 
+  {
+    using type = std::tuple<T>;
+  };
+
   template<typename T,typename index_data, typename index_t>
   class proxy
   {
@@ -17,7 +26,6 @@ namespace hack::matrix_utils
 
     public:
       proxy(const std::weak_ptr<index_data>& local_storage, const index_t& index) : local_storage_ { local_storage }, index_ { index } {};
-      ~proxy() = default;
 
       auto operator[](std::size_t index) const
       {
@@ -58,7 +66,7 @@ namespace hack
   template<typename T, std::size_t dimensions>
   class matrix
   {
-    using index_t = typename utils::generate_tuple<std::size_t, dimensions>::type;    
+    using index_t = typename matrix_utils::generate_tuple<std::size_t, dimensions>::type;    
     using vector_t = decltype(std::tuple_cat(index_t{}, std::make_tuple(T{})));
     using index_data_t = std::vector<vector_t>;
 
@@ -70,7 +78,6 @@ namespace hack
       }
       matrix(matrix& mt) noexcept : local_storage_ { mt.local_storage_ } { }
       matrix(matrix&& mt) noexcept : local_storage_ { mt.local_storage_ } { }
-      ~matrix() = default;
       
       matrix& operator=(matrix&& mt)
       {

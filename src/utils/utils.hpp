@@ -1,19 +1,43 @@
 #pragma once
 
-#include <iostream>
-#include <unordered_map>
+#include <map>
 
 namespace hack::utils
 {
-  template<typename T, std::size_t N>
-  struct generate_tuple 
+  template<typename Result, typename... Args>
+  auto func_memory(Result (*f)(Args...))
   {
-    using type = decltype(std::tuple_cat(typename generate_tuple<T, N - 1>::type{}, std::make_tuple(T{})));
-  };
+    std::map<std::tuple<Args...>, Result> cache;
 
-  template<typename T>
-  struct generate_tuple<T, 1> 
-  {
-    using type = std::tuple<T>;
-  };
+    return [f, cache](Args... args) mutable -> Result
+    {
+      const auto key = std::make_tuple(args...);
+      const auto cached = cache.find(key);
+
+      if(cached == cache.end())
+      {
+        auto result = f(args...);
+        cache[key] = result;
+        return result;
+      }
+      return cached->second;
+    };
+  }
 }
+
+
+  // std::map<std::tuple<Args...>, Result> cache;
+  //
+  // return [f, cache](Args... args) mutable -> Result
+  // {
+  //   const auto args_tuple = std::make_tuple(args...);
+  //   const auto cached = cache.find(args_tuple);
+  //
+  //   if (cached == cache.end()) 
+  //   {
+  //     auto result = f(args...);
+  //     cache[args_tuple] = result;
+  //     return result;
+  //   } 
+  //   else 
+  //     return cached->second
