@@ -21,80 +21,80 @@ namespace hack
       template<typename... Args>
       void operator() (const Args&... args)
       {
-        std::cout /*<< make_type_view*/
+        std::cout << make_type_view
                   << location.file_name() << ":" << view::color::reset 
                   << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
                   << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
-        //count = sizeof...(Args);
+        count = sizeof...(Args);
         print(args...);
       }
 
     private:
       std::experimental::source_location location;
-      //static int count;
-      //static std::string devider;
+      static int count;
+      static std::string devider;
 
     private:
-      void print();
+      static void print();
 
-      std::ostream& make_type_view(std::ostream &os)
+      static std::ostream& make_type_view(std::ostream &os)
       {
         os << view::color::bold << view::color::green << "[ok]" << view::color::reset << view::color::green;
         return os;
       }
 
       template<typename T, typename... Args>
-      void print(const T& data, const Args&... args)
+      static void print(const T& data, const Args&... args)
       {
-        //count--;
+        count--;
         print_t(data);
         print(args...);
       }
 
       template<concepts::is_string T>
-      void print_t(const T& data)
+      static void print_t(const T& data)
       {
-        //std::cout << data << (count != 0 ? devider : "");
+        std::cout << data << (count != 0 ? devider : "");
       }
 
       template<std::integral T>
-      void print_t(const T& data)
+      static void print_t(const T& data)
       {
-        //std::cout << data << (count != 0 ? devider : "");
+        std::cout << data << (count != 0 ? devider : "");
       }
 
       template<concepts::is_sequence_container T>
-      void print_t(const T& data)
+      static void print_t(const T& data)
       {
         std::cout << "{ ";
         std::copy(data.cbegin(), data.cend(), iterators::sequence_ostream_iterator<typename T::value_type>(data.size(), std::cout));
-        //std::cout << " }" << (count != 0 ? devider : "");
+        std::cout << " }" << (count != 0 ? devider : "");
       }
 
       template<concepts::is_map T>
-      void print_t(const T& data)
+      static void print_t(const T& data)
       {
         std::cout << "{";
         std::copy(data.cbegin(), data.cend(), iterators::associative_ostream_iterator<typename T::value_type>(data.size(), std::cout));
-        //std::cout << "}" << (count != 0 ? devider : "");
+        std::cout << "}" << (count != 0 ? devider : "");
       }
 
       template<concepts::is_tuple T, typename std::size_t... idx>
-      void print_t(const T& data)
+      static void print_t(const T& data)
       {
         print_t(data, std::make_index_sequence<std::tuple_size<T>::value>{});
       }
 
       template<typename T, typename std::size_t... idx>
-      void print_t(const T& data, std::index_sequence<idx...>)
+      static void print_t(const T& data, std::index_sequence<idx...>)
       {
         std::cout << "{ ";
-       // ((std::cout << std::get<idx>(data) << (idx != std::tuple_size<T>::value - 1 ? devider : "")), ...);
-        //std::cout << " }" << (count != 0 ? devider : "");
+        ((std::cout << std::get<idx>(data) << (idx != std::tuple_size<T>::value - 1 ? devider : "")), ...);
+        std::cout << " }" << (count != 0 ? devider : "");
       }
 
       template<typename T, std::size_t demention>
-      void print_t(const matrix<T, demention>& data)
+      static void print_t(const matrix<T, demention>& data)
       {
         std::size_t index = data.size();
         for (auto& r : data)
@@ -107,9 +107,9 @@ namespace hack
       }
 
       template<concepts::not_defined T>
-      void print_t(const T& data)
+      static void print_t(const T& data)
       {
-        //std::cout << data << (count != 0 ? devider : "");
+        std::cout << data << (count != 0 ? devider : "");
       }
 
       friend class warn;
@@ -127,11 +127,11 @@ namespace hack
       template<typename... Args>
       void operator() (const Args&... args)
       {
-        std::cout /*<< make_type_view*/
+        std::cout << make_type_view
                   << location.file_name() << ":" << view::color::reset 
                   << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
                   << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
-        //count = sizeof...(Args);
+        count = sizeof...(Args);
         print(args...);
       }
 
@@ -139,7 +139,7 @@ namespace hack
       std::experimental::source_location location;
 
     private:
-      std::ostream& make_type_view(std::ostream &os)
+      static std::ostream& make_type_view(std::ostream &os)
       {
         os << view::color::bold << view::color::yellow << "[WARN]" << view::color::reset << view::color::yellow;
         return os;
@@ -157,11 +157,11 @@ namespace hack
       template<typename... Args>
       void operator() (const Args&... args)
       {
-        std::cout /*<< make_type_view*/
+        std::cout << make_type_view
                   << location.file_name() << ":" << view::color::reset 
                   << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
                   << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
-        //count = sizeof...(Args);
+        count = sizeof...(Args);
         print(args...);
       }
 
@@ -169,7 +169,7 @@ namespace hack
       std::experimental::source_location location;
 
     private:
-      std::ostream& make_type_view(std::ostream &os)
+      static std::ostream& make_type_view(std::ostream &os)
       {
         os << view::color::bold <<  view::color::red << "[ERROR]" << view::color::reset << view::color::red;
         return os;
