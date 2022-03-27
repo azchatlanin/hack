@@ -1,11 +1,17 @@
 inc += include_directories('.')
 
-subdir('view')
-subdir('concepts')
-subdir('utils')
-subdir('iterators')
 subdir('string')
-subdir('range')
-subdir('container')
 subdir('logger')
-subdir('math')
+
+deps += string_dep
+deps += logger_dep
+
+lib = library(
+  'hack',
+  include_directories : inc,
+)
+
+hack_dep = declare_dependency(
+  include_directories: inc,
+  link_with: lib
+)

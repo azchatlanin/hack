@@ -15,7 +15,7 @@ test(
   executable(
     'within',
     'range.cpp',
-    dependencies: [ range_dep, gtest_dep ]
+    dependencies: [ hack_dep, gtest_dep ]
   )
 )
 
@@ -24,6 +24,6 @@ test(
   executable(
     'container',
     'container.cpp',
-    dependencies: [ range_dep, gtest_dep ]
+    dependencies: [ hack_dep, gtest_dep ]
   )
 )

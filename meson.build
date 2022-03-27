@@ -24,21 +24,7 @@ endif
 
 args = []
 deps = []
-
 inc = []
-inc += include_directories('.')
-
-conf = configuration_data()
-check_headers = [
-  ['ncurses.h', 'HAVE_NCURSES_H'],
-  ['curses.h', 'HAVE_CURSES_H'],
-]
-
-foreach h : check_headers
-  if compiler.has_header(h.get(0))
-    conf.set(h.get(1), 1)
-  endif
-endforeach
 
 subdir('src')
 subdir('bin')
