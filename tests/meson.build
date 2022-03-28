@@ -6,7 +6,7 @@ test(
   executable(
     'split_str',
     'string.cpp',
-    dependencies: [ string_dep, gtest_dep ]
+    dependencies: [ deps, gtest_dep ]
   )
 )
 
@@ -15,7 +15,7 @@ test(
   executable(
     'within',
     'range.cpp',
-    dependencies: [ hack_dep, gtest_dep ]
+    dependencies: [ deps, gtest_dep ]
   )
 )
 
@@ -24,6 +24,6 @@ test(
   executable(
     'container',
     'container.cpp',
-    dependencies: [ hack_dep, gtest_dep ]
+    dependencies: [ deps, gtest_dep ]
   )
 )

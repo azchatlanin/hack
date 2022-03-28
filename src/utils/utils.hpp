@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <functional>
 
 namespace hack::utils
 {
@@ -24,20 +25,3 @@ namespace hack::utils
     };
   }
 }
-
-
-  // std::map<std::tuple<Args...>, Result> cache;
-  //
-  // return [f, cache](Args... args) mutable -> Result
-  // {
-  //   const auto args_tuple = std::make_tuple(args...);
-  //   const auto cached = cache.find(args_tuple);
-  //
-  //   if (cached == cache.end()) 
-  //   {
-  //     auto result = f(args...);
-  //     cache[args_tuple] = result;
-  //     return result;
-  //   } 
-  //   else 
-  //     return cached->second
