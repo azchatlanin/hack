@@ -24,4 +24,23 @@ namespace hack::utils
       return cached->second;
     };
   }
+
+  template<typename T, typename... Args>
+  auto func_concat(T t, Args... args)
+  {
+    if constexpr (sizeof...(args) > 0)
+    {
+      return [=](auto... params)
+      {
+        return t(func_concat(args...)(params...));
+      };
+    }
+    else
+    {
+      return [=](auto... params)
+      {
+        return t(params...);
+      };
+    }
+  }
 }

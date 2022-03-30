@@ -27,3 +27,12 @@ test(
     dependencies: [ deps, gtest_dep ]
   )
 )
+
+test(
+  'math',
+  executable(
+    'math',
+    'math.cpp',
+    dependencies: [ deps, gtest_dep ]
+  )
+)

@@ -23,6 +23,16 @@ int f(int a)
   return ++a;
 }
 
+int plus(int a) 
+{
+  return a++;
+}
+
+int minus(int a)
+{
+  return a--;
+}
+
 int main(int argc, char *argv[])
 {
   {// ex: string::split_str
@@ -154,5 +164,10 @@ int main(int argc, char *argv[])
     const auto full_name = hack::string::str_concat + name + ", " + surname;
     hack::log()(full_name);
     hack::log()(hack::string::str_concat + "super", + "string");
+  }
+
+  {// ex: utils::func_concat
+    auto combine ( hack::utils::func_concat(plus, minus) );
+    hack::log("")("func_concat result: ", combine(3));
   }
 }
