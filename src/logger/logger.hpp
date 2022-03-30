@@ -2,6 +2,8 @@
 
 #include <experimental/source_location>
 
+#include "boost/type_index.hpp"
+
 #include "view/color.hpp"
 #include "concepts/concepts.hpp"
 #include "iterators/sequence_ostream_iterator.hpp"
@@ -10,6 +12,15 @@
 
 namespace hack
 {
+  template<typename T, typename U>
+  void prepare(T t, U u)
+  {
+    std::cout << t
+              << u.file_name() << ":" << view::color::reset 
+              << view::color::italic << view::color::yellow << u.function_name() << "()" << view::color::reset
+              << view::color::bold << view::color::blue << "[" << u.line() << "]" << view::color::reset << ": ";
+  }
+
   class log
   {
     public:
@@ -21,12 +32,17 @@ namespace hack
       template<typename... Args>
       void operator() (const Args&... args)
       {
-        std::cout << make_type_view
-                  << location.file_name() << ":" << view::color::reset 
-                  << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
-                  << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
         count = sizeof...(Args);
+        prepare(make_type_view, location);
         print(args...);
+      }
+
+      template<typename... Args>
+      static void type_trace(const Args&... args)
+      {
+        std::cout << make_type_view << ": " << view::color::reset;
+        count = sizeof...(Args);
+        print(boost::typeindex::type_id<Args>().pretty_name()...);
       }
 
     private:
@@ -127,10 +143,7 @@ namespace hack
       template<typename... Args>
       void operator() (const Args&... args)
       {
-        std::cout << make_type_view
-                  << location.file_name() << ":" << view::color::reset 
-                  << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
-                  << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
+        prepare(make_type_view, location);
         count = sizeof...(Args);
         print(args...);
       }
@@ -157,10 +170,7 @@ namespace hack
       template<typename... Args>
       void operator() (const Args&... args)
       {
-        std::cout << make_type_view
-                  << location.file_name() << ":" << view::color::reset 
-                  << view::color::italic << view::color::yellow << location.function_name() << "()" << view::color::reset
-                  << view::color::bold << view::color::blue << "[" << location.line() << "]" << view::color::reset << ": ";
+        prepare(make_type_view, location);
         count = sizeof...(Args);
         print(args...);
       }

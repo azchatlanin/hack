@@ -22,8 +22,11 @@ elif compiler.get_id() == 'clang'
   message('Compiler: LLVM/clang')
 endif
 
+boost_dep = dependency('boost')
+
 args = []
 deps = []
+deps += boost_dep
 inc = []
 
 subdir('src')

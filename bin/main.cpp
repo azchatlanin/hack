@@ -33,6 +33,11 @@ int minus(int a)
   return a--;
 }
 
+struct ForTypeTrace
+{
+  int a;
+};
+
 int main(int argc, char *argv[])
 {
   {// ex: string::split_str
@@ -48,16 +53,19 @@ int main(int argc, char *argv[])
   {// ex: container::vector_multiset
     std::vector<std::string> v;
     hack::container::vector_multiset(v, "asdf", "qwer", "zcv");
-    for(const auto& c : v) std::cout << c << std::endl;
+    for(const auto& c : v) hack::log()(c);
   }
 
   {// ex: container::set_multiset
     std::set<int> s;
     hack::container::set_multiset(s, 1, 2, 3, 3, 2, 1);
-    for(const auto& c : s) std::cout << c << std::endl;
+    for(const auto& c : s) hack::log()(c);
   }
 
   {// ex: logger::log
+    int a = 10;
+    ForTypeTrace ftt { 1234 };
+    hack::log::type_trace(a, a, ftt);
     hack::log()(1234, "run in main", 1234);
     hack::warn(" # ")(1234, "run in main", 1234);
     hack::error(" - ")(1234, "run in main", 1234);
