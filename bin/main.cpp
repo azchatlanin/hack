@@ -178,4 +178,8 @@ int main(int argc, char *argv[])
     auto combine ( hack::utils::func_concat(plus, minus) );
     hack::log("")("func_concat result: ", combine(3));
   }
+
+  {// ex: utils::exec
+    hack::log()(hack::utils::exec("ls"));
+  }
 }
