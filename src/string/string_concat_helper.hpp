@@ -70,7 +70,7 @@ namespace hack::string
   };
 
   template <typename Stream, typename... Strings>
-  Stream& operator<<(Stream& stream, const string_concat_helper<Strings...> strings)
+  Stream& operator<<(Stream& stream, string_concat_helper<Strings...> strings)
   {
     return stream << static_cast<std::string>(strings);
   }

@@ -24,7 +24,7 @@ namespace hack
   class log
   {
     public:
-      log(const std::string devider_ = ", ", std::experimental::source_location location_ = std::experimental::source_location::current()); 
+      log(std::string devider_ = ", ", std::experimental::source_location location_ = std::experimental::source_location::current()); 
       log(log&) = delete;
       log(log&&) = delete;
 
@@ -135,7 +135,7 @@ namespace hack
   class warn : public log
   {
     public:
-      warn(const std::string devider_ = ", ", std::experimental::source_location location_ = std::experimental::source_location::current());
+      warn(std::string devider_ = ", ", std::experimental::source_location location_ = std::experimental::source_location::current());
       warn(log&) = delete;
       warn(log&&) = delete;
 
@@ -162,7 +162,7 @@ namespace hack
   class error : public log
   {
     public:
-      error(const std::string devider_ = ", ", std::experimental::source_location location_ = std::experimental::source_location::current()); 
+      error(std::string devider_ = ", ", std::experimental::source_location location_ = std::experimental::source_location::current()); 
       error(log&) = delete;
       error(log&&) = delete;
 

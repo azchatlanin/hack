@@ -181,5 +181,8 @@ int main(int argc, char *argv[])
 
   {// ex: utils::exec
     hack::log()(hack::utils::exec("ls"));
+    hack::log()(hack::utils::exec("pwd"));
+    auto t = hack::utils::exec("pwd");
+    hack::log::type_trace(t);
   }
 }

@@ -12,7 +12,7 @@ namespace hack::iterators
 
     private:
       std::basic_ostream<char, traits>* os_;
-      const std::string devider_ = ", ";
+      std::string devider_ = ", ";
       std::size_t size_;
 
     public:
